@@ -18,10 +18,10 @@ import org.jboss.seam.spring.example.domain.UserDao;
 public class SimpleServlet extends HttpServlet{
 
     @Inject
-    UserDao userDao;
+    Invoker invoker;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getOutputStream().println(userDao.getForUsername("jdoe").getFirstName());
+        resp.getOutputStream().println(invoker.getMessage(req.getParameter("user")));
     }
 }
