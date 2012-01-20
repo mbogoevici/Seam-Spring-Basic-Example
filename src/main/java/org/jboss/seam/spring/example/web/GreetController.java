@@ -1,5 +1,6 @@
 package org.jboss.seam.spring.example.web;
 
+import org.jboss.seam.spring.example.cdi.Invoker;
 import org.jboss.seam.spring.example.domain.User;
 import org.jboss.seam.spring.example.domain.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class GreetController {
 
     @Autowired
-    private UserDao userDao;
+    private Invoker invoker;
 
     @RequestMapping(method = RequestMethod.GET)
     public
@@ -27,11 +28,6 @@ public class GreetController {
     public
     @ModelAttribute("message")
     String getGreeting(@RequestParam("username") String username) {
-        User user = userDao.getForUsername(username);
-        if (user != null) {
-            return "Hello, " + user.getFirstName() + " " + user.getLastName() + "!";
-        } else {
-            return "No such user exists! Use 'emuster' or 'jdoe'";
-        }
+        return invoker.getMessage(username);
     }
 }

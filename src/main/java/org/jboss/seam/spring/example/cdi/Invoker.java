@@ -13,9 +13,13 @@ import org.jboss.seam.spring.example.domain.UserDao;
 public class Invoker {
     @Inject
     UserDao userDao;
-    
+
     public String getMessage(String username) {
-       User user = userDao.getForUsername(username);
-       return "CDI greets " + user.getFirstName() + " " + user.getLastName();
+        User user = userDao.getForUsername(username);
+        if (user == null) {
+            return "No user with id '" + username + "' exists. Try 'emuster' or 'jdoe'";
+        } else {
+            return "CDI greets " + user.getFirstName() + " " + user.getLastName();
+        }
     }
 }

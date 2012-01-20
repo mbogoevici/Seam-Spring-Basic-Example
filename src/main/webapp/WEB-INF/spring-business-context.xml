@@ -4,11 +4,13 @@
    xmlns:jee="http://www.springframework.org/schema/jee"
    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
    xmlns:tx="http://www.springframework.org/schema/tx"
+   xmlns:cdi="http://www.jboss.org/schema/seam/spring"
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.jboss.org/schema/seam/spring http://www.jboss.org/schema/seam/spring/seam-spring.xsd">
 
    <!-- Scan the the domain package for Spring repositories and services -->
    <context:component-scan base-package="org.jboss.seam.spring.example.domain" />
@@ -35,5 +37,9 @@
    <jdbc:initialize-database data-source="dataSource">
       <jdbc:script location="classpath*:init-db.sql" />
    </jdbc:initialize-database>
+
+   <cdi:bean-manager/>
+
+    <cdi:bean-reference id='invoker' type="org.jboss.seam.spring.example.cdi.Invoker"/>
 
 </beans>
